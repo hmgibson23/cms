@@ -43,6 +43,18 @@ function(username, password, done) {
 }
 ));
 
+//serialization functions
+passport.serializeUser(function(user, done) {
+  done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+  db.userModel.findById(id, function (err, user) {
+    done(err, user);
+  });
+});
+
+
 //main application initialisation
 var app = express();
 
@@ -92,11 +104,19 @@ app.get('/login', user.login);
 //POST Routes
 app.post('/register', user.register);
 //hard-coded as uses passport and is pretty simple
-app.post('/login', 
-	passport.authenticate('local', { failureRedirect: '/login', failureFlash: true }),
-	function(req, res) {
-		res.redirect('/');
-	});
+app.post('/login', function(req, res, next) {
+  passport.authenticate('local', function(err, user, info) {
+    if (err) { return next(err) }
+    if (!user) {
+      req.session.messages =  [info.message];
+      return res.redirect('/login')
+    }
+    req.logIn(user, function(err) {
+      if (err) { return next(err); }
+      return res.redirect('/');
+    });
+  })(req, res, next);
+});
 
 http.createServer(app).listen(app.get('port'), function(){
 	console.log('Express server listening on port ' + app.get('port'));

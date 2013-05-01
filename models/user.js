@@ -22,7 +22,7 @@ UserSchema = new Schema({
         }
     },
     'username' : {type: String, unique: true},
-    'hased_password': String,
+    'hashed_password': String,
     'salt': String,
     'last_login': {type: Date, default: Date.now},
     'date_joined': {type: Date}
