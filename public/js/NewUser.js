@@ -8,13 +8,14 @@ var UserView = Backbone.View.extend({
 
 	createNewUser: function(event) {
 		console.log('form submitted');
-		form.preventDefault();
+		event.preventDefault();
 		$('#new_user').slideUp('slow');
 		$('.loading-gif').show();
+		var params = $('#new_user').serialize();
 		$.ajax({
 			type: 'POST',
 			url: '/register',
-			data: $('#new-user').serialize(),
+			data: params,
 			complete: function(data) {
 				$('.loading-gif').hide();
 				$('#response').html(data.result);

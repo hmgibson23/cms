@@ -15,7 +15,7 @@ exports.newuser = function(req, res) {
 };
 
 exports.register = function(req, res) {
-	
+	console.log(req.body.password);
 	var u = new User();
 	u.first_name = req.body.first_name;
 	u.last_name = req.body.last_name;
