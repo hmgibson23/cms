@@ -1,10 +1,9 @@
 var mongoose = require('mongoose'),
-    Page = require('./content'),
     User = require('./user'),
-    LoginToken = require('./token');
+    Vehicle = require('./vehicle');
 
     
-mongoose.connect('mongodb://localhost/guletweek');
+mongoose.connect('mongodb://localhost/cms');
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));

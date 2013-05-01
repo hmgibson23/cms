@@ -1,0 +1,18 @@
+<% include header.ejs %>
+
+<div id='login' class=".well">
+<h1>Login:</h1>
+<form method='post' action='/login'>
+    <label>Email:</label>
+    <input name="email" type="text" placeholder="First...">
+    <label>Password:</label>
+    <input name="password" type="password" placeholder="Password…">
+    <br />
+    <input type="submit" class="btn btn-primary" value='Login' />
+    </form>
+</div>
+<div id="response">
+<img class="ajax-loader" src="/img/ajax-loader.gif" style="display:none;"/>
+ </div>
+    <script src='/js/NewUser.js'></script>
+<% include footer.ejs %>

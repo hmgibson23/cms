@@ -5,7 +5,7 @@
 <div id="vehicles">
 
 <p><button id="new-vehicle-click" class="btn">Add Vehicle</button></p>
-<div id="new-vehicle-form" style="display:none">
+<form id="new-vehicle-form" style="display:none">
     <legend>Create New Vehicle</legend>
     <label>Manufacturer:</label>
     <input name="manu" type="text" placeholder="Name...">
@@ -18,8 +18,8 @@
     <label>Description:</label>
     <input name="description" type="text" placeholder="Description…">
     <br />
-<button id="create-new-vehicle" class="btn">Create</button>
-</div>
+<input type="submit" class="btn" value='Create' />
+</form>
 
 <h2>Vehicles</h2>
 <ul id="vehicle-list">

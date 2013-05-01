@@ -7,6 +7,14 @@
   },
   "dependencies": {
     "express": "3.2.1",
-    "ejs": "*"
+    "ejs": "*",
+    "mongodb": "*",
+    "mongoose": "*",
+    "crypto": "*",
+    "passport-local": "*",
+    "passport": "*",
+    "connect-mongo": "*",
+    "connect-ensure-login": "*",
+    "connect-flash" : "*"
   }
 }

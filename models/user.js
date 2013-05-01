@@ -1,12 +1,6 @@
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
-    bcrypt = require('bcrypt'),
-    crypto = require('crypto'),
-    SALT_WORK_FACTOR = 10,
-    // these values can be whatever you want - we're defaulting to a
-    // max of 5 attempts, resulting in a 2 hour lock
-    MAX_LOGIN_ATTEMPTS = 5,
-    LOCK_TIME = 2 * 60 * 60 * 1000;
+    crypto = require('crypto');
 
 /**
  * Model: User
@@ -27,9 +21,12 @@ UserSchema = new Schema({
             dropDups: true
         }
     },
-    'hashed_password': String,
+    'username' : {type: String, unique: true},
+    'hased_password': String,
     'salt': String,
-    'last_login': {type: Date, default: Date.now}
+    'last_login': {type: Date, default: Date.now},
+    'date_joined': {type: Date}
+
 });
 
 UserSchema.virtual('id').get(function() {

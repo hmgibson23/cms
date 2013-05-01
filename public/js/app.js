@@ -8,6 +8,9 @@ var Vehicle = Backbone.Model.extend({
         color: "",
         mileage: "",
         description: "",
+        sold: false,
+        date_of_sale: null,
+        date_of_arrival: null
     }
 });
 
@@ -29,6 +32,7 @@ var VehicleView = Backbone.View.extend({
 
     render: function() {
         var dict = this.model.toJSON();
+        console.log(dict);
         this.$el.html(this.template(dict));
         return this;
     }
@@ -42,7 +46,7 @@ var AppView = Backbone.View.extend({
 
     events: {
       "click #new-vehicle-click":  "showNewVehicleForm",
-      "click #create-new-vehicle":  "createNewVehicle"
+      "submit #new-vehicle-form":  "createNewVehicle"
     },
 
     initialize: function() {
@@ -54,11 +58,15 @@ var AppView = Backbone.View.extend({
         $('#new-vehicle-form').slideDown('slow');
     },
     
-    createNewVehicle: function() {
+    createNewVehicle: function(form) {
+        form.preventDefault();
         var veh = new Vehicle;
         veh.set({
-            name : $('input[name=vehicle_name]').val(),
-            registration : $('input[name=vehicle_reg]').val()
+            manufacturer : $('input[name=manu]').val(),
+            registration : $('input[name=vehicle_reg]').val(),
+            mileage : $('input[name=mileage]').val(),
+            color : $('input[name=color]').val(),
+            description : $('input[name=description]').val()
         });
         this.addOne(veh);
         $('#new-vehicle-form').slideUp('slow');

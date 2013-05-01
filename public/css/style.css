@@ -6,3 +6,36 @@ body {
 a {
   color: #00B7FF;
 }
+
+
+#vehicle-list {
+	list-style: none;
+	background-color: #dceaf4;
+	border-radius: 5px 5px 5px 5px;
+	padding: 5px 5px 5px 5px;
+}
+.vehicle-li {
+	display: inline;
+	type: none;
+}
+
+.manu {
+	float: right;
+}
+
+
+#header_above {
+	min-height: 150px;
+}
+
+#logo {
+	float: left;
+}
+
+#user-info {
+	float:right;
+}
+
+#login {
+	float: center;
+}

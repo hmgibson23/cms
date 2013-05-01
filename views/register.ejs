@@ -1,0 +1,26 @@
+<% include header.ejs %>
+
+<h1>Register a new user:</h1>
+
+<div id="register">
+<form id='new_user' method='post'>
+    <legend>Create New User</legend>
+    <label>First Name:</label>
+    <input name="first_name" type="text" placeholder="First...">
+    <label>Last Name:</label>
+    <input name="last_name" type="text" placeholder="Last…">
+    <label>Email:</label>
+    <input name="email" type="text" placeholder="Email…">
+    <label>Password:</label>
+    <input name="password" type="password" placeholder="Password…">
+    <label>Re-type Passord:</label>
+    <input name="repassword" type="password" placeholder="Re-type Password…">
+    <br />
+    <input type="submit" class="btn primary" value='Register' />
+    </form>
+</div>
+<div id="response">
+<img class="ajax-loader" src="/img/ajax-loader.gif" style="display:none;"/>
+ </div>
+    <script src='/js/NewUser.js'></script>
+<% include footer.ejs %>
