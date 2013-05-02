@@ -1,4 +1,5 @@
 body {
+	padding: 5px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
@@ -82,4 +83,15 @@ a {
 .new-vehicle {
 	float: right;
 	margin-top: 10px;
+}
+
+.user-info {
+	float: right;
+	margin-top: 10px;
+	margin-right: 40px;
+
+}
+
+.logo {
+	float: left;
 }
