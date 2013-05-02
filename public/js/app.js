@@ -8,6 +8,7 @@ var Vehicle = Backbone.Model.extend({
         color: "",
         mileage: "",
         description: "",
+        list_price: null,
         sold: false,
         date_of_sale: null,
         date_of_arrival: null

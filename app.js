@@ -54,7 +54,6 @@ passport.deserializeUser(function(id, done) {
   });
 });
 
-
 //main application initialisation
 var app = express();
 
