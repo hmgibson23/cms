@@ -2,7 +2,8 @@ var mongoose = require('mongoose'),
 Schema = mongoose.Schema;
 
 
-UserSchema = new Schema({
+VehicleSchema = new Schema({
+	'image': String, //src to image resource
     'manufacturer': String,
     'registration': {type: String, unique:true},    
     'color' : String,
@@ -13,3 +14,5 @@ UserSchema = new Schema({
     'date_sold': Date,
     'description': String
 });
+
+module.exports = mongoose.model('Vehicle', VehicleSchema);

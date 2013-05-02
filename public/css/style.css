@@ -1,5 +1,4 @@
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
@@ -16,16 +15,21 @@ a {
 }
 .vehicle-li {
 	display: inline;
-	type: none;
+	padding: 2px;
 }
 
-.manu {
-	float: right;
+.hover {
+    background-color: #ffee99 !important;
+ }
+
+.edit-form {
+	display:none;
 }
 
 
 #header_above {
-	min-height: 150px;
+	min-height: 100px;
+	min-width: 100%;
 }
 
 #logo {
@@ -38,4 +42,44 @@ a {
 
 #login {
 	float: center;
+}
+
+.vehicle-div {
+	padding: 3px;
+	margin-bottom: 20px;
+	min-height: 220px;
+}
+
+.vehicle-image {
+	float:left;
+	margin: 3px 3px 3px 3px;
+}
+
+.vehicle-info {
+	padding: 2px;
+	margin: 3px 3px 3px 3px;
+}
+
+.alter-buttons {
+	float: right;
+	margin-top: 100px;
+}
+
+.alter-form {
+	margin-top: 150px;
+}
+
+.admin-panel {
+	border-top: 1px solid #D8D8D8;
+	width: 100%;
+}
+
+.right-panel {
+	border-left: 1px solid #D8D8D8;
+	padding-left: 5px;
+}
+
+.new-vehicle {
+	float: right;
+	margin-top: 10px;
 }

@@ -7,52 +7,21 @@
 //requirements
 var express = require('express')
 , routes = require('./routes')
+, User = require('./models/user')
 , user = require('./routes/user')
 , models = require('./models')
-, User = require('./models/user')
 , http = require('http')
 , path = require('path')
+, pass = require('./config/passport')
 , passport = require('passport')
 , mongoose = require('mongoose')
 , flash = require('connect-flash')
+, vehicles = require('./routes/vehicles')
 , LocalStrategy = require('passport-local').Strategy
 , MongoStore = require('connect-mongo')(express);
 
 
-//setup passport for authentication use must follow app initial configuration
-passport.use(new LocalStrategy(
-function(username, password, done) {
-	console.log('finding user: ' + username);
-	console.log('with password: ' + password);
-	User.findOne({username: username}, function(err, user) {
-		if (err) { 
-			console.log(err);
-			return done(err); 
-		}
-		if (!user) {
-			console.log('no such user: ' + username);
-			return done(null, false, { message: 'Incorrect username.' });
-		}
-		if(user.authenticate(password)) {
-			console.log('no such password');
-			return done(null, false, { message: 'Incorrect password.' });
-		}
-		console.log('you appear to have logged in');
-		return done(null, user);
-	});
-}
-));
 
-//serialization functions
-passport.serializeUser(function(user, done) {
-  done(null, user.id);
-});
-
-passport.deserializeUser(function(id, done) {
-  db.userModel.findById(id, function (err, user) {
-    done(err, user);
-  });
-});
 
 //main application initialisation
 var app = express();
@@ -116,6 +85,14 @@ app.post('/login', function(req, res, next) {
     });
   })(req, res, next);
 });
+
+
+//VEHICLE ROUTES
+app.get('/vehicles', vehicles.vehicles);
+app.post('/vehicles', vehicles.new_vehicle);
+app.put('/vehicles/:id', vehicles.update_vehicle);
+app.del('/vehicles/:id', vehicles.delete_vehicle);
+
 
 http.createServer(app).listen(app.get('port'), function(){
 	console.log('Express server listening on port ' + app.get('port'));

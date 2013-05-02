@@ -1,0 +1,9 @@
+{
+  "image": "null",
+  "manufacturer": "Mercedes",
+  "registration": "VXF45",
+  "color": "Blue",
+  "mileage": "7000",
+  "list_price": "5500",
+  "description": "Agretvehicle"
+}
