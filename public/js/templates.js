@@ -18,7 +18,7 @@ var li_templ = [
 "<% } %>",
 "</div>",
 "<div class='alter-buttons'>",
-"<button class='btn btn-success sold'>Sold</button>",
+"<% if(sold !== true) { %><button class='btn btn-success sell'>Sold</button><% } %>",
 "<button class='btn btn-danger destroy'>Delete</button>",
 "<button class='btn btn-info edit'>Edit</button>",
 "</div>",
@@ -46,8 +46,8 @@ window.JST['vehicle/li'] = _.template(li_templ);
 
 
 var vehicle_main = [
-'<span class="new-vehicle"><button id="new-vehicle-click" class="btn">Add Vehicle</button></span>',
-'<form class="form-horizontal" id="new-vehicle-form" style="display:none;">',
+'<span class="new-vehicle"><button class="new-vehicle-click" class="btn">Add Vehicle</button></span>',
+'<form class="form-horizontal" class="new-vehicle-form" style="display:none;">',
 '   <legend>Create New Vehicle</legend>',
     '<label>Manufacturer:</label>',
     '<input name="manu" type="text" placeholder="Manufacturer...">',
@@ -67,7 +67,14 @@ var vehicle_main = [
 '<button class="btn btn-danger cancel">Cancel</button>',
 '</form>',
 '<h2>Vehicles</h2>',
-'<ul id="vehicle-list">',
+'<ul class="nav nav-pills">',
+  '<li class="active">',
+    '<a href="#available" class="all">All</a>',
+  '</li>',
+  '<li><a href="#sold" class="available">Available</a></li>',
+  '<li><a href="#sold" class="sold">Sold</a></li>',
+'</ul>',
+'<ul class="vehicle-list">',
 '</ul>'
 ].join('\n');
 

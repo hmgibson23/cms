@@ -17,7 +17,9 @@ $.fn.serializeObject = function() {
 
 
 
-var CMS = (function(Backbone, $) {
+var CMS = CMS || {};
+
+CMS = (function(Backbone, $) {
     var Vehicle = Backbone.Model.extend({
 
         //maps directly to mongo _id
@@ -34,13 +36,29 @@ var CMS = (function(Backbone, $) {
             sold: false,
             date_registered: null,
             date_sold: null
+        },
+
+        validate: function(attrs) {
+            //regex for int
+            var intReg = /^\d+$/;
+            if(!intReg.test(attrs.mileage) || !intReg.test(attrs.list_price))
+                return 'Mileage and List Price must be numbers';
         }
     });
 
     //VEHICLE COLLECTION
     var VehicleList = Backbone.Collection.extend({
         model: Vehicle,
-        url: '/vehicles'
+        url: '/vehicles',
+
+
+        sold: function() {
+            return this.where({sold: true});
+        },
+
+        available: function() {
+            return this.where({sold:false});
+        }
     });
 
 
@@ -48,7 +66,7 @@ var CMS = (function(Backbone, $) {
     var Vehicles = new VehicleList();
 
 
-    /*=============================
+/*=============================
 =            VIEWS            =
 =============================*/
     var VehicleView = Backbone.View.extend({
@@ -61,7 +79,7 @@ var CMS = (function(Backbone, $) {
             "click button.edit": "edit",
             "submit .edit-form": "update",
             "click .cancel": "cancel",
-            "click .sold": "sold"
+            "click .sell": "sold"
         },
 
         template: JST['vehicle/li'],
@@ -82,6 +100,8 @@ var CMS = (function(Backbone, $) {
         },
 
         clear: function() {
+            console.log('sending delete request');
+            this.$el.hide();
             this.model.destroy();
         },
 
@@ -109,14 +129,17 @@ var CMS = (function(Backbone, $) {
     });
 
     var VehiclesView = Backbone.View.extend({
-        el: $('#vehicles'),
+        el: $('.vehicles'),
 
         template: JST['vehicles/main'],
 
         events: {
-            "click #new-vehicle-click": "showNewVehicleForm",
-            "submit #new-vehicle-form": "createNewVehicle",
-            "click .cancel": "hideForm"
+            "click .new-vehicle-click": "showNewVehicleForm",
+            "submit .new-vehicle-form": "createNewVehicle",
+            "click .cancel": "hideForm",
+            "click a.available": "showAvailable",
+            "click a.sold": "showSold",
+            "click a.all": "showAll"
         },
 
         initialize: function() {
@@ -126,6 +149,7 @@ var CMS = (function(Backbone, $) {
         },
 
         render: function() {
+            console.log('rendering');
             this.$el.append(this.template());
             return this;
         },
@@ -146,14 +170,14 @@ var CMS = (function(Backbone, $) {
                 description: this.$('input[name=description]').val()
             });
             Vehicles.create(veh);
-            this.$('#new-vehicle-form').slideUp('slow');
+            this.$('.new-vehicle-form').slideUp('slow');
         },
 
         addOne: function(vehicle) {
             var view = new VehicleView({
                 model: vehicle
             });
-            this.$('#vehicle-list').append(view.render().el);
+            this.$('.vehicle-list').append(view.render().el);
         },
 
         addAll: function() {
@@ -161,10 +185,41 @@ var CMS = (function(Backbone, $) {
         },
 
         hideForm: function() {
-            this.$('#new-vehicle-form').slideUp('slow');
+            this.$('.new-vehicle-form').slideUp('slow');
+        },
+
+        showSold: function() {
+            this.$('.sold').parent().addClass('active');
+            this.$('.all').parent().removeClass('active');
+            this.$('.available').parent().removeClass('active');
+            $('.vehicle-list').empty();
+            _.each(Vehicles.sold(), this.addOne);
+        },
+
+        showAvailable: function() {
+            this.$('.available').parent().addClass('active');
+            this.$('.sold').parent().removeClass('active');
+            this.$('.all').parent().removeClass('active');
+            $('.vehicle-list').empty();
+            _.each(Vehicles.available(), this.addOne);
+        },
+
+        showAll: function() {
+            this.$('.available').parent().removeClass('active');
+            this.$('.sold').parent().removeClass('active');
+            this.$('.all').parent().addClass('active');
+            $('.vehicle-list').empty();
+            this.addAll();
         }
     });
 
+
+
+
+    //TODO: Needs to be implemented - probably do parts first and some design
+    var AccountingView = Backbone.View.extend({
+        el: $('.accounting')
+    });
 
 
     /**
@@ -177,15 +232,20 @@ var CMS = (function(Backbone, $) {
         el: $('body'),
 
         events: {
-            'click a.vehicles': 'loadVehicles',
-            'click a.parts': 'loadParts',
-            'click a.accounting': 'loadAccounting'
+            'click a.vehicles-nav': 'loadVehicles',
+            'click a.parts-nav': 'loadParts',
+            'click a.accounting-nav': 'loadAccounting'
         },
 
         loadVehicles: function() {
-            this.$('#vehicles').remove();
-            $('#right-panel').append("<div id='vehicles'></div>");
-            this.vehicles = new VehiclesView();
+            this.vehicles.remove();
+            this.vehicles.unbind();
+            var frag = document.createDocumentFragment();
+            var div = document.createElement("div");
+            div.className = "vehicles";
+            frag.appendChild(div);
+            document.getElementById('right-panel').appendChild(frag);
+            this.vehicles.render();
         },
 
         initialize: function() {
@@ -196,14 +256,14 @@ var CMS = (function(Backbone, $) {
     });
 
     return {
-        init :function() {
+        init : function() {
         var view = new AppView();
     }
-}
+};
 
 })(Backbone, jQuery);
 
 //init app    
-$(function() {
+document.addEventListener('DOMContentLoaded', function() {
     CMS.init();
 });
