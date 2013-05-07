@@ -1,12 +1,40 @@
 body {
-	padding: 5px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+	font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
-  color: #00B7FF;
+	color: #00B7FF;
 }
 
+
+.extended-nav {
+	border-radius: none;
+	min-height: 30px;
+	padding-left: 20px;
+	padding-right: 20px;
+	background-color: #0c8a73;
+	background-image: -moz-linear-gradient(top, #0c8a73, #0c8a73);
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0c8a73), to(#0c8a73));
+	background-image: -webkit-linear-gradient(top, #0c8a73, #0c8a73);
+	background-image: -o-linear-gradient(top, #0c8a73, #0c8a73);
+	background-image: linear-gradient(to bottom, #0c8a73, #0c8a73);
+	background-repeat: repeat-x;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0c8a73', endColorstr='#ff0c8a73', GradientType=0);
+	border: 1px solid #075244;
+	-webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
+	-moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
+}
+
+.options {
+	margin-left: 10px;
+	height: 100%;
+	width: 100%;%
+}
+
+.options:hover {
+	background-color: red;
+}
 
 .vehicle-list {
 	list-style: none;
@@ -20,8 +48,8 @@ a {
 }
 
 .hover {
-    background-color: #ffee99 !important;
- }
+	background-color: #ffee99 !important;
+}
 
 .edit-form {
 	display:none;
@@ -31,6 +59,7 @@ a {
 #header_above {
 	min-height: 50px;
 	min-width: 100%;
+	background-color: rgb(87, 102, 116);
 }
 
 #logo {
