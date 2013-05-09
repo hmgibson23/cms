@@ -8,7 +8,7 @@ a {
 
 
 .extended-nav {
-	border-radius: none;
+	border-radius: 0 0 0 0;
 	min-height: 30px;
 	padding-left: 20px;
 	padding-right: 20px;
@@ -29,11 +29,11 @@ a {
 .options {
 	margin-left: 10px;
 	height: 100%;
-	width: 100%;%
+	width: 100%;
+	background-color: red;
 }
 
 .options:hover {
-	background-color: red;
 }
 
 .vehicle-list {
@@ -55,22 +55,7 @@ a {
 	display:none;
 }
 
-
-#header_above {
-	min-height: 50px;
-	min-width: 100%;
-	background-color: rgb(87, 102, 116);
-}
-
-#logo {
-	float: left;
-}
-
-#user-info {
-	float:right;
-}
-
-#login {
+.login {
 	float: center;
 }
 
@@ -123,4 +108,45 @@ a {
 
 .logo {
 	float: left;
+}
+
+.vehicle-overlay {
+  opacity:    0.5; 
+  background: #000; 
+  width:      100%;
+  height:     100%; 
+  z-index:    10;
+  top:        0; 
+  left:       0; 
+  position:   fixed; 
+  display: none;
+}
+
+.vehicle-modal {
+	background-color: white;
+	width: 50%;
+	height: 57%;
+	position: fixed;
+	z-index: 15;
+	opacity: 5;
+	left: 25%;
+	top: 20%;
+	box-shadow: 3px 3px 3px 3px #232020;
+	display: none;
+}
+
+.vehicle-inner-details {
+	position: absolute;
+	left: 330px;
+	top: 10px;
+}
+
+.vehicle-inner-description {
+	position: absolute;
+	bottom: 300px;
+}
+
+.vehicle-inner-image {
+	margin-top: 5px;
+	margin-left: 5px;
 }

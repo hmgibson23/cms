@@ -21,6 +21,7 @@ var li_templ = [
 "<% if(sold !== true) { %><button class='btn btn-success sell'>Sold</button><% } %>",
 "<button class='btn btn-danger destroy'>Delete</button>",
 "<button class='btn btn-info edit'>Edit</button>",
+"<button class='btn view'>View</button>",
 "</div>",
 "<div class='alter-form'>",
     "<form class='edit-form'>",
@@ -46,8 +47,8 @@ window.JST['vehicle/li'] = _.template(li_templ);
 
 
 var vehicle_main = [
-'<span class="new-vehicle"><button class="new-vehicle-click" class="btn">Add Vehicle</button></span>',
-'<form class="form-horizontal" class="new-vehicle-form" style="display:none;">',
+'<span class="new-vehicle"><button class="new-vehicle-click btn">Add Vehicle</button></span>',
+'<form class="form-horizontal new-vehicle-form" style="display:none;">',
 '   <legend>Create New Vehicle</legend>',
     '<label>Manufacturer:</label>',
     '<input name="manu" type="text" placeholder="Manufacturer...">',
@@ -79,3 +80,25 @@ var vehicle_main = [
 ].join('\n');
 
 window.JST['vehicles/main'] = _.template(vehicle_main);
+
+var vehicle_modal_templ = [
+"<div class='inner-vehicle-modal'>",
+"<span class='vehicle-inner-image'>",
+"<img class='media-object' src='<%= image %>' />",
+"</span>",
+"<span class='vehicle-inner-details'>",
+"<span class='manu'><strong>Manufacturer:</strong><%= manufacturer %></span>",
+"<br/> <strong>Reg: </strong><span class='reg'><%- registration %></span>",
+"<br /> <strong>Color: </strong><span class='color'><%- color %> </span>",
+"<br /> <strong>Mileage: </strong><span class='mileage'><%- mileage %></span>",
+"</span>",
+"<span class='vehicle-inner-description'>",
+"<% if (typeof(description) != 'undefined') { %>",
+"<br /> <strong>Description:</strong>",
+"<br /><p><%= description %></p>",
+"<% } %>",
+"</span>",
+"</div>"
+].join('\n');
+
+window.JST['vehicle/model-templ'] = _.template(vehicle_modal_templ);

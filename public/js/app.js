@@ -79,7 +79,8 @@ CMS = (function(Backbone, $) {
             "click button.edit": "edit",
             "submit .edit-form": "update",
             "click .cancel": "cancel",
-            "click .sell": "sold"
+            "click .sell": "sold",
+            "click .view": "viewInDetail"
         },
 
         template: JST['vehicle/li'],
@@ -100,7 +101,6 @@ CMS = (function(Backbone, $) {
         },
 
         clear: function() {
-            console.log('sending delete request');
             this.$el.hide();
             this.model.destroy();
         },
@@ -124,8 +124,42 @@ CMS = (function(Backbone, $) {
                 'date_sold': new Date()
             });
             this.model.save();
+        },
+
+        viewInDetail: function() {
+            var vew = new VehicleModalView(this.model);
         }
 
+    });
+
+    var VehicleModalView = Backbone.View.extend({
+        //separate view to handle the vehicle modal
+        el: $('.vehs'),
+        template: JST['vehicle/model-templ'],
+
+        events: {
+            "click .vehicle-overlay": "destroyVehicleView"
+        },
+
+        initialize: function(model) {
+            console.log('initializing');
+            this.model = model;
+            this.$('.vehicle-overlay').fadeIn();
+            this.$('.vehicle-modal').fadeIn();
+            this.render();
+        },
+
+        render: function() {
+            var dict = this.model.toJSON();
+            this.$('.vehicle-modal').html(this.template(dict));
+            return this;
+        },
+
+        destroyVehicleView: function() {
+            this.$('.vehicle-modal').html(" ");
+            this.$('.vehicle-overlay').hide();
+            this.$('.vehicle-modal').hide();
+        }
     });
 
     var VehiclesView = Backbone.View.extend({
